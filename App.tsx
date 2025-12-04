@@ -48,7 +48,20 @@ return ( <Canvas style={{ flex: 1 }}> <Animated.View style={[StyleSheet.absolute
 
 
 
-// --- COMPONENT: GLOW CARD (With Loud Typography) --- const GlowCard = ({ width, height, emotionColor, title, body, date, imageUri, intensity = 50 }) => { const glowRadius = (intensity / 100) * 30; // Loud Typography Logic: Scale font based on intensity (50 is default) const titleSize = interpolate(intensity, [0, 100], [14, 28]); const finalHeight = imageUri ? height + 120 : height; const PAD = 30;
+// --- COMPONENT: GLOW CARD (With Loud Typography) ---
+function lerp(input, inputRange, outputRange) {
+  const [inMin, inMax] = inputRange;
+  const [outMin, outMax] = outputRange;
+  if (input <= inMin) return outMin;
+  if (input >= inMax) return outMax;
+  return outMin + ((input - inMin) * (outMax - outMin)) / (inMax - inMin);
+}
+const GlowCard = ({ width, height, emotionColor, title, body, date, imageUri, intensity = 50 }) => {
+  const glowRadius = (intensity / 100) * 30;
+  // Loud Typography Logic: Scale font based on intensity (50 is default)
+  const titleSize = lerp(intensity, [0, 100], [14, 28]);
+  const finalHeight = imageUri ? height + 120 : height;
+  const PAD = 30;
 
 
 
