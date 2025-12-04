@@ -1,0 +1,17 @@
+{
+
+  "cli": { "version": ">= 7.0.0" },
+
+  "build": {
+
+    "development": { "developmentClient": true, "distribution": "internal" },
+
+    "production": { "distribution": "store", "autoSubmit": true, "ios": { "resourceClass": "m1-medium" } }
+
+  },
+
+  "submit": { "production": {} }
+
+}
+
+

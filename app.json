@@ -1,0 +1,29 @@
+{
+
+  "expo": {
+
+    "name": "Mind Palace",
+
+    "slug": "mind-palace",
+
+    "version": "1.0.0",
+
+    "orientation": "portrait",
+
+    "icon": "./assets/icon.png",
+
+    "userInterfaceStyle": "dark",
+
+    "splash": { "image": "./assets/splash.png", "resizeMode": "contain", "backgroundColor": "#000000" },
+
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.REPLACE_WITH_YOUR_NAME.mindpalace", "buildNumber": "1.0.0", "infoPlist": { "NSPhotoLibraryUsageDescription": "To attach memories.", "NSCameraUsageDescription": "To capture raw moments." } },
+
+    "android": { "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#000000" }, "package": "com.REPLACE_WITH_YOUR_NAME.mindpalace", "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"] },
+
+    "plugins": ["expo-router", ["expo-image-picker", { "photosPermission": "Allow Mind Palace to access photos.", "cameraPermission": "Allow Mind Palace to access camera." }]]
+
+  }
+
+}
+
+
