@@ -44,7 +44,7 @@ const style = useAnimatedStyle(() => ({ transform: [{ translateX: gyroX.value },
 
 
 
-return ( <Canvas style={{ flex: 1 }}> <Animated.View style={[StyleSheet.absoluteFill, style]}> <Canvas style={{ flex: 1 }}> {/* Deep Ambient Orbs */} <RadialGradient c={vec(100, 100)} r={200} colors={[COLORS.neonPurple, 'transparent']} /> <RadialGradient c={vec(SCREEN_WIDTH, 600)} r={300} colors={[COLORS.neonBlue, 'transparent']} /> </Animated.View> ); };
+return ( <Animated.View style={[StyleSheet.absoluteFill, style]}> <Canvas style={{ flex: 1 }}> {/* Deep Ambient Orbs */} <RadialGradient c={vec(100, 100)} r={200} colors={[COLORS.neonPurple, 'transparent']} /> <RadialGradient c={vec(SCREEN_WIDTH, 600)} r={300} colors={[COLORS.neonBlue, 'transparent']} /> </Canvas> </Animated.View> ); };
 
 
 
@@ -62,10 +62,26 @@ const GlowCard = ({ width, height, emotionColor, title, body, date, imageUri, in
   const titleSize = lerp(intensity, [0, 100], [14, 28]);
   const finalHeight = imageUri ? height + 120 : height;
   const PAD = 30;
-
-
-
-return ( <Pressable onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)} style={{ width, height: finalHeight, marginBottom: 20, justifyContent: 'center', alignItems: 'center' }}> <View style={[StyleSheet.absoluteFill, { top: -PAD, left: -PAD }]}> <Canvas style={{ width: width + PAD * 2, height: finalHeight + PAD * 2 }}> <View style={[styles.cardInner, { width, height: finalHeight }]}> {imageUri && <Image source={{ uri: imageUri }} style={{ width: '100%', height: 120, borderRadius: 12, marginBottom: 12 }} resizeMode="cover" />} <View style={[styles.cardHeader, { borderLeftColor: emotionColor }]}> <Text style={[styles.cardTitle, { fontSize: titleSize, lineHeight: titleSize + 4 }]}>{title} {date} {body} ); };
+  return (
+    <Pressable onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)} style={{ width, height: finalHeight, marginBottom: 20, justifyContent: 'center', alignItems: 'center' }}>
+      {/* Skia Glow BG */}
+      <View style={[StyleSheet.absoluteFill, { top: -PAD, left: -PAD, zIndex: 0 }]}> 
+        <Canvas style={{ width: width + PAD * 2, height: finalHeight + PAD * 2 }}>
+          <RoundedRect x={PAD} y={PAD} width={width} height={finalHeight} r={24} color={emotionColor} style="stroke" strokeWidth={glowRadius} />
+          <BlurMask blur={glowRadius} style="solid" />
+        </Canvas>
+      </View>
+      <View style={[styles.cardInner, { width, height: finalHeight, zIndex: 1 }]}>  
+        {imageUri && <Image source={{ uri: imageUri }} style={{ width: '100%', height: 120, borderRadius: 12, marginBottom: 12 }} resizeMode="cover" />}
+        <View style={[styles.cardHeader, { borderLeftColor: emotionColor }]}>  
+          <Text style={[styles.cardTitle, { fontSize: titleSize, lineHeight: titleSize + 4 }]}>{title}</Text>
+          <Text style={styles.cardDate}>{date}</Text>
+        </View>
+        <Text style={styles.cardBody}>{body}</Text>
+      </View>
+    </Pressable>
+  );
+};
 
 
 
